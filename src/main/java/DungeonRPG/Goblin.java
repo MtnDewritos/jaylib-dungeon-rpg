@@ -9,7 +9,6 @@ public class Goblin extends Enemy{
     public Goblin(int str, int dex, int vit, int intelligence, int lvl, int x, int y, int exp) {
         super(str, dex, vit, intelligence, lvl, x, y, exp);
         this.hp = 5 + vit;
-        this.ac = dex;
     }
 
     @Override

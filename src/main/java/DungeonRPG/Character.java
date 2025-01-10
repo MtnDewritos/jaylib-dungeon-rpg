@@ -12,6 +12,16 @@ public abstract class Character extends Fighter {
     protected int exp;
     private int levelUpThreshold = 100;
 
+    private HashMap<EquipmentSlot, Equipment> equippedItems = new HashMap<>();
+    private final Inventory inventory;
+
+    public Character(int str, int dex, int vit, int intelligence, int lvl, int x, int y) {
+        super(str, dex, vit, intelligence, lvl, x, y);
+        this.hp = 10 + vit * 2;
+        this.ac = 5;
+        this.inventory = new Inventory();
+    }
+
     public enum EquipmentSlot{
         HEAD,
         ARM_R,
@@ -20,15 +30,6 @@ public abstract class Character extends Fighter {
         FEET,
         HANDS
     }
-
-    private HashMap<EquipmentSlot, Equipment> equippedItems = new HashMap<>();
-
-    public Character(int str, int dex, int vit, int intelligence, int lvl, int x, int y) {
-        super(str, dex, vit, intelligence, lvl, x, y);
-        this.hp = 10 + vit * 2;
-        this.ac = 5 + dex;
-    }
-
 
     @Override
     public void move(Direction d) {
@@ -98,7 +99,7 @@ public abstract class Character extends Fighter {
     }
 
     public void die(){
-        //reset the game or something
+        DungeonManager.playerDeath();
     }
     private void gainExp(int exp){
         this.exp += exp;
@@ -113,6 +114,10 @@ public abstract class Character extends Fighter {
 
         }
 
+    }
+
+    public Inventory getInventory(){
+        return inventory;
     }
 
 }

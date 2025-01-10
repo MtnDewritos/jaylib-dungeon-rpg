@@ -10,8 +10,12 @@ import static java.util.Map.entry;
 import static DungeonRPG.Fighter.Stat.*;
 
 public class ItemActor extends Actor implements Interactable {
-    public ItemActor(int x, int y) {
+
+    private Item item;
+
+    public ItemActor(int x, int y, Item item) {
         super(x, y);
+        this.item = item;
     }
 
     @Override
@@ -26,7 +30,10 @@ public class ItemActor extends Actor implements Interactable {
 
     @Override
     public void interact() {
-        DungeonManager.getPlayer().equip(new Equipment("Sword", ARM_R, new HashMap<Fighter.Stat, Integer>(Map.ofEntries(entry(DMG,3)))));
+        if(this.item instanceof Equipment){
+            DungeonManager.getPlayer().equip((Equipment) this.item);
+        }
+
         DungeonManager.removeActor(this.x,this.y);
     }
 }

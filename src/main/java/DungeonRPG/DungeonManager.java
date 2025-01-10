@@ -2,11 +2,15 @@ package DungeonRPG;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 import static DungeonRPG.Actor.Direction.*;
 import static DungeonRPG.Actor.Direction.DOWN;
+import static DungeonRPG.Character.EquipmentSlot.ARM_R;
 import static DungeonRPG.DungeonTile.TileType.WALL;
+import static DungeonRPG.Fighter.Stat.DMG;
 import static com.raylib.Raylib.*;
+import static java.util.Map.entry;
 
 public final class DungeonManager {
 
@@ -25,10 +29,12 @@ public final class DungeonManager {
         player = new Warrior(5, 5, 5, 3, 1, 200, 100);
         Enemy e = new Goblin(3, 5, 3, 1, 1, 250, 100, 10);
         Enemy e2 = new Goblin(3, 5, 3, 1, 1, 150, 200, 10);
-        ItemActor a = new ItemActor(100, 100);
+        ItemActor a = new ItemActor(100, 100, new Equipment("Sword", ARM_R, new HashMap<Fighter.Stat, Integer>(Map.ofEntries(entry(DMG,3)))));
+        Chest c = new Chest(300, 100);
         actorMap.put(new Point(250,100), e);
         actorMap.put(new Point(150,200), e2);
         actorMap.put(new Point(100,100), a);
+        actorMap.put(new Point(300,100), c);
     }
 
     public static DungeonFloor getCurrentFloor() {
@@ -97,4 +103,11 @@ public final class DungeonManager {
         removeActor(x, y);
         actorMap.put(new Point(newX, newY), a);
     }
+
+    public static void playerDeath(){
+        actorMap.clear();
+        populateFloor();
+
+    }
+
 }

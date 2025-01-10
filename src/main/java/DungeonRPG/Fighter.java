@@ -71,10 +71,6 @@ public abstract class Fighter extends Actor {
         return dmg;
     }
 
-    public int getAc() {
-        return ac;
-    }
-
     public int getLvl() {
         return lvl;
     }
@@ -85,7 +81,13 @@ public abstract class Fighter extends Actor {
 
     public boolean doesAttackHit(int enemyAC, int enemyLvl) {
         int toHit = this.toHit + this.dex + 5 * this.lvl;
-        float chanceToHit = 100f * (float)toHit *10f / (((float)toHit*10f + (float)enemyAC)) * 2f * (float)this.lvl / ((float)this.lvl + (float)enemyLvl);
+        //simple version
+        int chanceToHit = 95 + Math.min(0,(this.lvl-enemyLvl)*2) + Math.min(0,(toHit - enemyAC)/2);
+        System.out.println(this.str + " " + chanceToHit);
+
+        //diablo 2 esque calculation, hard to work with
+        //float chanceToHit = 100f * (float)toHit *10f / (((float)toHit*10f + (float)enemyAC)) * 2f * (float)this.lvl / ((float)this.lvl + (float)enemyLvl);
+
         int rand = new Random().nextInt(100);
         return chanceToHit >= rand + 1;
     }

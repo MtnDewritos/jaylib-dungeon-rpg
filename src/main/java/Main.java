@@ -77,8 +77,6 @@ public class Main {
 
                 DungeonManager.render();
 
-
-
                 EndMode2D();
             EndTextureMode();
 
@@ -90,10 +88,11 @@ public class Main {
 
                     BeginMode2D(screenSpaceCamera);
                         DrawTexturePro(target.texture(), sourceRec, destRec, origin, 0.0f, WHITE);
+                        HUD.DrawHP();
                     EndMode2D();
 
-                DrawText("Screen resolution: " + screenWidth + "x" + screenHeight, 10, 10, 20, DARKBLUE);
-                DrawText("World resolution: " + virtualScreenWidth + "x" + virtualScreenHeight, 10, 40, 20, DARKGREEN);
+                //DrawText("Screen resolution: " + screenWidth + "x" + screenHeight, 10, 10, 20, DARKBLUE);
+                //DrawText("World resolution: " + virtualScreenWidth + "x" + virtualScreenHeight, 10, 40, 20, DARKGREEN);
 
                 EndDrawing();
         }
